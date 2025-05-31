@@ -15,10 +15,14 @@ public class ClientController {
     @Autowired
     private ClientService clientService;
 
-    @Transactional
     @PostMapping
     public ResponseEntity<ClientDTO> insert(@RequestBody  Client client){
         return clientService.insert(client);
+
+    }
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<ClientDTO> findByID(@PathVariable  Long id){
+        return clientService.findById(id);
 
     }
 }

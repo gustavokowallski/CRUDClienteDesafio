@@ -15,19 +15,19 @@ public class Client {
     private String name;
     private String cpf;
     private Double income;
-    private LocalDate bithDate;
-    private Integer childer;
+    private LocalDate birthDate;
+    private Integer children;
 
     public Client(){
     }
 
-    public Client(String name, String cpf, Double income, LocalDate bithDate, Integer childer) {
+    public Client(String name, String cpf, Double income, LocalDate birthDate, Integer children) {
 
         this.name = name;
         this.cpf = cpf;
         this.income = income;
-        this.bithDate = bithDate;
-        this.childer = childer;
+        this.birthDate = birthDate;
+        this.children = children;
     }
 
     public String getName() {
@@ -54,20 +54,20 @@ public class Client {
         this.income = income;
     }
 
-    public LocalDate getBithDate() {
-        return bithDate;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
-    public void setBithDate(LocalDate bithDate) {
-        this.bithDate = bithDate;
+    public void setBirthDate(LocalDate birthDate) {
+        this.birthDate = birthDate;
     }
 
-    public Integer getChilder() {
-        return childer;
+    public Integer getChildren() {
+        return children;
     }
 
-    public void setChilder(Integer childer) {
-        this.childer = childer;
+    public void setChildren(Integer children) {
+        this.children = children;
     }
 
     public Long getId() {

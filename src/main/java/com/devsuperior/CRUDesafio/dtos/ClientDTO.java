@@ -17,8 +17,8 @@ public class ClientDTO {
         name = client.getName();
         cpf = client.getCpf();
         income = client.getIncome();
-        bithDate = client.getBithDate();
-        childer = client.getChilder();
+        bithDate = client.getBirthDate();
+        childer = client.getChildren();
 
 
     }
