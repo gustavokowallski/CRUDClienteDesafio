@@ -15,8 +15,6 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
 
 @Service
 public class ClientService {
@@ -41,5 +39,11 @@ public class ClientService {
     public ResponseEntity<Page<ClientDTO>> findAll (Pageable pagea){
     Page<Client> result  = clientRepository.findAll(pagea);
         return ResponseEntity.ok(result.map(x -> new ClientDTO(x)));
+    }
+
+    @Transactional(readOnly = false)
+    public ResponseEntity<Void> deleteById(Long id){
+        clientRepository.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 }

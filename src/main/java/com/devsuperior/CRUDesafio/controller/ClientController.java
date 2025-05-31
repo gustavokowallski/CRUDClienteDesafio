@@ -7,11 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(value = "/client")
+@RequestMapping(value = "/clients")
 public class ClientController {
 
     @Autowired
@@ -30,6 +29,11 @@ public class ClientController {
     @GetMapping
     public ResponseEntity<Page<ClientDTO>> findAll (Pageable pagea){
         return clientService.findAll(pagea);
+    }
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Long id){
+        return clientService.deleteById(id);
+
     }
 
 }
