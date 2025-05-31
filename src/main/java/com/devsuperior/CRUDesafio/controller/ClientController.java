@@ -3,9 +3,11 @@ package com.devsuperior.CRUDesafio.controller;
 import com.devsuperior.CRUDesafio.dtos.ClientDTO;
 import com.devsuperior.CRUDesafio.entities.Client;
 import com.devsuperior.CRUDesafio.service.ClientService;
-import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -25,4 +27,9 @@ public class ClientController {
         return clientService.findById(id);
 
     }
+    @GetMapping
+    public ResponseEntity<Page<ClientDTO>> findAll (Pageable pagea){
+        return clientService.findAll(pagea);
+    }
+
 }
