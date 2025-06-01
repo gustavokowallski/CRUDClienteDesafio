@@ -10,14 +10,8 @@ import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
-
-
-import java.net.URI;
-import java.util.Optional;
 
 @Service
 public class ClientService {
@@ -27,12 +21,14 @@ public class ClientService {
 
     @Transactional
     public ClientDTO insert (ClientDTO entity){
-        Client client = new Client();
-        client = clientRepository.save(DTOtoEntity(entity, client));
-        return new ClientDTO(client);
+
+            Client client = new Client();
+            client = clientRepository.save(DTOtoEntity(entity, client));
+            return new ClientDTO(client);
+
+        }
 
 
-    }
     @Transactional(readOnly = true)
     public ClientDTO findById (Long id){
         Client client = clientRepository.findById(id).orElseThrow(
@@ -84,3 +80,4 @@ public class ClientService {
 
 
 }
+

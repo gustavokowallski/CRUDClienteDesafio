@@ -3,6 +3,7 @@ package com.devsuperior.CRUDesafio.controller;
 import com.devsuperior.CRUDesafio.dtos.ClientDTO;
 import com.devsuperior.CRUDesafio.entities.Client;
 import com.devsuperior.CRUDesafio.service.ClientService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,7 +21,7 @@ public class ClientController {
     private ClientService clientService;
 
     @PostMapping
-    public ResponseEntity<ClientDTO> insert(@RequestBody ClientDTO client){
+    public ResponseEntity<ClientDTO> insert(@Valid @RequestBody ClientDTO client){
         ClientDTO dto = clientService.insert(client);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(client.getId()).toUri();
         return ResponseEntity.created(uri).body(dto);
@@ -42,7 +43,7 @@ public class ClientController {
 
     }
     @PutMapping(value = "/{id}")
-    public ResponseEntity<ClientDTO> updateClient(@PathVariable Long id, @RequestBody ClientDTO entity){
+    public ResponseEntity<ClientDTO> updateClient(@PathVariable Long id, @Valid @RequestBody ClientDTO entity){
         ClientDTO dto = clientService.update(id, entity);
         return ResponseEntity.ok().body(dto);
 
