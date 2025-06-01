@@ -26,9 +26,7 @@ public class ClientService {
     @Transactional
     public ClientDTO insert (ClientDTO entity){
         Client client = new Client();
-
-        client = DTOtoEntity(entity, client);
-        client = clientRepository.save(client);
+        client = clientRepository.save(DTOtoEntity(entity, client));
         return new ClientDTO(client);
 
 
