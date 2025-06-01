@@ -8,6 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping(value = "/clients")
@@ -17,22 +20,31 @@ public class ClientController {
     private ClientService clientService;
 
     @PostMapping
-    public ResponseEntity<ClientDTO> insert(@RequestBody  Client client){
-        return clientService.insert(client);
+    public ResponseEntity<ClientDTO> insert(@RequestBody ClientDTO client){
+        ClientDTO dto = clientService.insert(client);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(client.getId()).toUri();
+        return ResponseEntity.created(uri).body(dto);
 
     }
     @GetMapping(value = "/{id}")
     public ResponseEntity<ClientDTO> findByID(@PathVariable  Long id){
-        return clientService.findById(id);
+        return ResponseEntity.ok().body(clientService.findById(id));
 
     }
     @GetMapping
     public ResponseEntity<Page<ClientDTO>> findAll (Pageable pagea){
-        return clientService.findAll(pagea);
+        return ResponseEntity.ok().body(clientService.findAll(pagea));
     }
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable Long id){
-        return clientService.deleteById(id);
+        clientService.deleteById(id);
+        return ResponseEntity.noContent().build();
+
+    }
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<ClientDTO> updateClient(@PathVariable Long id, @RequestBody ClientDTO entity){
+        ClientDTO dto = clientService.update(id, entity);
+        return ResponseEntity.ok().body(dto);
 
     }
 

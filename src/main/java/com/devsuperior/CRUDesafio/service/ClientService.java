@@ -15,6 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 import java.net.URI;
+import java.util.Optional;
 
 @Service
 public class ClientService {
@@ -23,27 +24,53 @@ public class ClientService {
 
 
     @Transactional
-    public ResponseEntity<ClientDTO> insert (Client entity){
-        clientRepository.save(entity);
-        ClientDTO dto = new ClientDTO(entity);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(entity.getId()).toUri();
-        return ResponseEntity.created(uri).body(dto);
+    public ClientDTO insert (ClientDTO entity){
+        Client client = new Client();
+
+        client = DTOtoEntity(entity, client);
+        client = clientRepository.save(client);
+        return new ClientDTO(client);
+
 
     }
     @Transactional(readOnly = true)
-    public ResponseEntity<ClientDTO> findById (Long id){
+    public ClientDTO findById (Long id){
         Client client = clientRepository.findById(id).get();
-        return ResponseEntity.ok(new ClientDTO(client));
+        ClientDTO dto = new ClientDTO(client);
+        return dto;
+
    }
     @Transactional(readOnly = true)
-    public ResponseEntity<Page<ClientDTO>> findAll (Pageable pagea){
+    public Page<ClientDTO> findAll (Pageable pagea){
     Page<Client> result  = clientRepository.findAll(pagea);
-        return ResponseEntity.ok(result.map(x -> new ClientDTO(x)));
+        return result.map(x -> new ClientDTO(x));
     }
 
     @Transactional(readOnly = false)
-    public ResponseEntity<Void> deleteById(Long id){
+    public void deleteById(Long id){
         clientRepository.deleteById(id);
-        return ResponseEntity.noContent().build();
+
     }
+
+    @Transactional
+    public ClientDTO update (Long id, ClientDTO dto){
+        Client client = clientRepository.getReferenceById(id);
+        client = clientRepository.save(DTOtoEntity(dto, client));
+        return new ClientDTO(client);
+
+
+    }
+
+
+    private Client DTOtoEntity(ClientDTO dto, Client entity){
+
+        entity.setName(dto.getName());
+        entity.setCpf(dto.getCpf());
+        entity.setChildren(dto.getChildren());
+        entity.setIncome(dto.getIncome());
+        entity.setBirthDate(dto.getBirthDate());
+        return entity;
+    }
+
+
 }

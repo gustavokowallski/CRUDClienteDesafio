@@ -9,17 +9,18 @@ public class ClientDTO {
     private String name;
     private String cpf;
     private Double income;
-    private LocalDate bithDate;
-    private Integer childer;
+    private LocalDate birthDate;
+    private Integer children;
+
+    public ClientDTO(){}
 
     public ClientDTO(Client client) {
         id = client.getId();
         name = client.getName();
         cpf = client.getCpf();
         income = client.getIncome();
-        bithDate = client.getBirthDate();
-        childer = client.getChildren();
-
+        birthDate = client.getBirthDate();
+        children = client.getChildren();
 
     }
 
@@ -27,12 +28,12 @@ public class ClientDTO {
         return id;
     }
 
-    public Integer getChilder() {
-        return childer;
+    public Integer getChildren() {
+        return children;
     }
 
-    public LocalDate getBithDate() {
-        return bithDate;
+    public LocalDate getBirthDate() {
+        return birthDate;
     }
 
     public Double getIncome() {
